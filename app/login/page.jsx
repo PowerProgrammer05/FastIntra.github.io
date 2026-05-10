@@ -111,8 +111,8 @@ export default function LoginPage() {
     <main className="login-shell">
       <section className="login-card">
         <div className="eyebrow">Hana School</div>
-        <h1>학사지원시스템 로그인</h1>
-        <p>실제 하나고등학교 학사지원시스템 로그인 API에 연결된 화면입니다.</p>
+        <h1>FastIntra Login</h1>
+        <p>하이하나 아이디와 비밀번호를 입력하세요 (로그인 정보는 기록되지 않습니다)</p>
 
         <form className="login-form" onSubmit={handleLogin}>
           <label>
