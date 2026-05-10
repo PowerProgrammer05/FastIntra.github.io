@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="./assets/fastintra.png" alt="New FastIntra logo" width="640" />
+  <img src="/assets/fastintra_logo.png" alt="New FastIntra logo" width="640" />
 </p>
 
 # New FastIntra
