@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { readJsonResponse } from '../../lib/api-client';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -36,7 +37,7 @@ export default function LoginPage() {
         body: JSON.stringify({ memId, memPwd })
       });
 
-      const data = await response.json();
+      const data = await readJsonResponse(response);
 
       if (!response.ok || data.result !== 'success') {
         setMessage(data.resMsg || data.responseMessage || '로그인에 실패했습니다.');
@@ -90,7 +91,7 @@ export default function LoginPage() {
         body: JSON.stringify({ memPinNum: pinValue, newEnv: true, accessToken })
       });
 
-      const data = await response.json();
+      const data = await readJsonResponse(response);
 
       if (!response.ok || data.result !== 'success') {
         setMessage(data.retMsg || data.resMsg || '본인확인번호 인증에 실패했습니다.');

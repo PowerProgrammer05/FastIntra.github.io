@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import SeatBlockGrid from './SeatBlockGrid';
+import { readJsonResponse } from '../lib/api-client';
 import { groupSeatsByRow, groupSeatsByFloor, groupSeatsByBlocks } from '../lib/seats';
 import { STUDY_ROOM_SLOTS } from '../lib/slots';
 
@@ -70,7 +71,7 @@ export default function SeatReservationApp() {
 
     try {
       const response = await fetch(`/api/seats?stIdxFull=${encodeURIComponent(stIdxFull)}`, { credentials: 'same-origin' });
-      const data = await response.json();
+      const data = await readJsonResponse(response);
 
       if (!response.ok || data.result !== 'success') {
         if (response.status === 401) {
@@ -101,7 +102,7 @@ export default function SeatReservationApp() {
     async function bootstrap() {
       try {
           const response = await fetch('/api/auth/session', { credentials: 'same-origin' });
-        const data = await response.json();
+        const data = await readJsonResponse(response);
 
         if (!response.ok || data.result !== 'success') {
           router.replace('/login');
@@ -148,7 +149,7 @@ export default function SeatReservationApp() {
         })
       });
 
-      const data = await response.json();
+      const data = await readJsonResponse(response);
       console.log('[Reserve] Response:', { status: response.status, ok: response.ok, data });
 
       if (!response.ok || data.result !== 'success') {
@@ -209,7 +210,7 @@ export default function SeatReservationApp() {
         body: JSON.stringify(payload)
       });
 
-      const data = await response.json();
+      const data = await readJsonResponse(response);
 
       console.log('[Cancel] Response:', {
         status: response.status,
@@ -270,7 +271,7 @@ export default function SeatReservationApp() {
       credentials: 'same-origin',
       body: JSON.stringify({})
     });
-    const data = await response.json();
+    const data = await readJsonResponse(response);
 
     if (!response.ok || data.result !== 'success') {
       setMessage(data.resMsg || '기기 등록에 실패했습니다.');

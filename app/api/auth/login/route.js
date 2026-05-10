@@ -10,12 +10,16 @@ import {
 import { COOKIE_NAME, createSession } from '../../../../lib/session-store';
 
 async function primeRemoteCookies() {
-  const response = await fetchRemote('/main/login/login.do', {
-    method: 'GET',
-    headers: buildRemoteHeaders({ isAjax: false, referer: 'https://hh.hana.hs.kr/main/login/login.do' })
-  });
+  try {
+    const response = await fetchRemote('/main/login/login.do', {
+      method: 'GET',
+      headers: buildRemoteHeaders({ isAjax: false, referer: 'https://hh.hana.hs.kr/main/login/login.do' })
+    });
 
-  return mergeCookieHeader('', getSetCookieLines(response.headers));
+    return mergeCookieHeader('', getSetCookieLines(response.headers));
+  } catch {
+    return '';
+  }
 }
 
 export async function POST(request) {
